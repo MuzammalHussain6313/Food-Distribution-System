@@ -1,7 +1,7 @@
 const jsonwebtoken = require('jsonwebtoken');
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const userRouter = express.userRouter();
+const userRouter = express.Router();
 const User = require('../models/User');
 
 userRouter.get('/', async (req,res)=>{
@@ -34,7 +34,7 @@ userRouter.post('/signup', async (req, res) => {
   }
 });
 
-useruserRouter.post('/login', async (req, res) => {
+userRouter.post('/login', async (req, res) => {
   try {
     const body = req.body;
     const email = body.email;
@@ -73,14 +73,13 @@ useruserRouter.post('/login', async (req, res) => {
   }
 });
 
-useruserRouter.get('/getUsers', async (req, res)=>{
+userRouter.get('/getUsers', async (req, res)=>{
   const allUsers = await User.find();
   //res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(allUsers);
 });
 
-
-useruserRouter.post('/newUser', async (req, res)=>{
+userRouter.post('/newUser', async (req, res)=>{
   // url to access thi sis "localhosta:3000/students/newStudent" not "localhost:3000/newStudent";
   //req.setHeader('Access-Control-Allow-Origin', '*');
   //res.setHeader('Access-Control-Allow-Origin', '*');
@@ -95,14 +94,13 @@ useruserRouter.post('/newUser', async (req, res)=>{
   res.send("Save a new student will here.");
 });
 
-useruserRouter.get('/:userId', async (req, res)=>{
+userRouter.get('/:userId', async (req, res)=>{
   console.log(req.params.userId);
   const user = await User.findById(req.params.userId);
   res.json(user);
 });
 
-
-useruserRouter.patch('/:userId', async (req, res)=>{
+userRouter.patch('/:userId', async (req, res)=>{
   console.log('id body', req.body);
   console.log('id recieve', req.params.userId);
   var user = req.body;
@@ -112,7 +110,7 @@ useruserRouter.patch('/:userId', async (req, res)=>{
   res.send(updatedUser);
 });
 
-useruserRouter.delete('/:deleteUser', async (req, res) => {
+userRouter.delete('/:deleteUser', async (req, res) => {
   try {
     console.log('body ' + req.body);
     const result = await User.remove({ _id: req.params.deleteUser});
@@ -127,4 +125,4 @@ useruserRouter.delete('/:deleteUser', async (req, res) => {
   }
 });
 
-module.exports = useruserRouter;
+module.exports = userRouter;
