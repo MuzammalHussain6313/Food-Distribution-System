@@ -1,6 +1,4 @@
-const jsonwebtoken = require('jsonwebtoken');
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const foodRouter = express.Router();
 const Food = require('../models/Food');
 

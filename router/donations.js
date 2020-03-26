@@ -1,6 +1,4 @@
-const jsonwebtoken = require('jsonwebtoken');
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const donationRouter = express.Router();
 const Donation = require('../models/Donation');
 
