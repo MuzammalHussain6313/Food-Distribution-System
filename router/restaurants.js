@@ -8,23 +8,21 @@ restaurantRouter.get('/', async (req,res)=>{
 
 restaurantRouter.get('/getRestaurants', async (req, res)=>{
     const allRestaurants = await Restaurant.find();
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(allRestaurants);
 });
 
 restaurantRouter.post('/newRestaurant', async (req, res)=>{
-    // url to access thi sis "localhosta:3000/students/newStudent" not "localhost:3000/newStudent";
-    //req.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const restaurant1 = new Restaurant(req.body);
     console.log('restaurant', restaurant1);
     const result = await restaurant1.save();
     if (result) {
         res.send({
-            message: "Student inserted successfully."
+            message: "A new Restaurant inserted successfully."
         });
     }
-    res.send("Save a new student will here.");
+    res.send(restaurant1);
 });
 
 restaurantRouter.get('/:restaurantId', async (req, res)=>{

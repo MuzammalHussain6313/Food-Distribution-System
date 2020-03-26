@@ -8,23 +8,21 @@ charityHouseRouter.get('/', async (req,res)=>{
 
 charityHouseRouter.get('/getCharityHouses', async (req, res)=>{
     const allDonations = await CharityHouse.find();
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(allDonations);
 });
 
 charityHouseRouter.post('/newCharityHouse', async (req, res)=>{
-    // url to access thi sis "localhost:3000/students/newStudent" not "localhost:3000/newStudent";
-    //req.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const charityHouse1 = new CharityHouse(req.body);
     console.log('charityHouse', charityHouse1);
     const result = await charityHouse1.save();
     if (result) {
         res.send({
-            message: "Student inserted successfully."
+            message: "A new charity house inserted successfully."
         });
     }
-    res.send("Save a new student will here.");
+    res.send(charityHouse1);
 });
 
 charityHouseRouter.get('/:charityHouseId', async (req, res)=>{
@@ -40,7 +38,7 @@ charityHouseRouter.patch('/:charityHouseId', async (req, res)=>{
     const updatedCharityHouse = await CharityHouse.updateOne(
         { _id: req.params.charityHouseId},
         { $set: charityHouse });
-    res.send(updatedcharityHouse);
+    res.send(updatedCharityHouse);
 });
 
 charityHouseRouter.delete('/:deleteCharityHouse', async (req, res) => {
@@ -49,7 +47,7 @@ charityHouseRouter.delete('/:deleteCharityHouse', async (req, res) => {
         const result = await CharityHouse.remove({ _id: req.params.deleteCharityHouse});
         if (result) {
             res.send({
-                massage: 'CharityHouse deleted Successfully.'
+                massage: 'Charity House deleted Successfully.'
             });
         }
     } catch (ex) {

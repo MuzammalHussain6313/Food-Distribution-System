@@ -22,7 +22,7 @@ userRouter.post('/signup', async (req, res) => {
     console.log('user', user);
     const result = await user.save();
     res.send({
-      message: 'User signup successful'
+      message: 'User sign up successfully'
     });
   }
   catch(ex){
@@ -45,7 +45,7 @@ userRouter.post('/login', async (req, res) => {
     if (!result) {
       // this means result is null
       res.status(401).send({
-        Error: 'This user doesnot exists. Please signup first'
+        Error: 'This user does not exists. Please sign up first.'
       });
     } else {
       // email did exist
@@ -75,14 +75,13 @@ userRouter.post('/login', async (req, res) => {
 
 userRouter.get('/getUsers', async (req, res)=>{
   const allUsers = await User.find();
-  //res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(allUsers);
 });
 
 userRouter.post('/newUser', async (req, res)=>{
-  // url to access thi sis "localhosta:3000/students/newStudent" not "localhost:3000/newStudent";
   //req.setHeader('Access-Control-Allow-Origin', '*');
-  //res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const user1 = new User(req.body);
   console.log('user', user1);
   const result = await user1.save();
