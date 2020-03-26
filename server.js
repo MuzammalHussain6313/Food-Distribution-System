@@ -16,10 +16,16 @@ app.use(bodyParser.urlencoded({
 }));
 
 const userRoute = require('./router/users');
-
+const restaurantRoute = require('./router/restaurants');
+const foodRoute = require('./router/foods');
+const donationRoute = require('./router/donations');
+const charityhouseRoute = require('./router/charityHouses');
 //app.use('/router')(router);
 app.use('/users', userRoute);
-
+app.use('/restaurants', restaurantRoute);
+app.use('/foods', foodRoute);
+app.use('/donations', donationRoute);
+app.use('/charityHouses', charityhouseRoute);
 app.get('/', (req, res) => {
     res.send('hello world');
 });

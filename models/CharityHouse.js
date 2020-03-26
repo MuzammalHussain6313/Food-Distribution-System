@@ -8,7 +8,7 @@ const CharityHouse = mongoose.Schema({
   type: String,
   bankName: String,
   accountNo: Number,
-  image:String
+  image: String
 });
 
 module.exports = mongoose.model('charityHouses', CharityHouse);

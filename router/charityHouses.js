@@ -1,57 +1,53 @@
-const jsonwebtoken = require('jsonwebtoken');
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const charitHouseRouter = express.Router();
-const CharitHouse = require('../models/CharitHouse');
+const charityHouseRouter = express.Router();
+const CharityHouse = require('../models/CharityHouse');
 
-charitHouseRouter.get('/', async (req,res)=>{
-    res.send("That is default page of the charitHouses endpoint.")
+charityHouseRouter.get('/', async (req,res)=>{
+    res.send("That is default page of the charityHouses endpoint.")
 });
 
-charitHouseRouter.get('/getCharitHouses', async (req, res)=>{
-    const allCharitHouses = await CharitHouse.find();
-    //res.setHeader('Access-Control-Allow-Origin', '*');
-    res.send(allCharitHouses);
+charityHouseRouter.get('/getCharityHouses', async (req, res)=>{
+    const allDonations = await CharityHouse.find();
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.send(allDonations);
 });
 
-charitHouseRouter.post('/newCharitHouse', async (req, res)=>{
-    // url to access thi sis "localhosta:3000/students/newStudent" not "localhost:3000/newStudent";
-    //req.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Origin', '*');
-    const charitHouse1 = new CharitHouse(req.body);
-    console.log('charitHouse', charitHouse1);
-    const result = await charitHouse1.save();
+charityHouseRouter.post('/newCharityHouse', async (req, res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const charityHouse1 = new CharityHouse(req.body);
+    console.log('charityHouse', charityHouse1);
+    const result = await charityHouse1.save();
     if (result) {
         res.send({
-            message: "Student inserted successfully."
+            message: "A new charity house inserted successfully."
         });
     }
-    res.send("Save a new student will here.");
+    res.send(charityHouse1);
 });
 
-charitHouseRouter.get('/:charitHouseId', async (req, res)=>{
-    console.log(req.params.charitHouseId);
-    const charitHouse = await CharitHouse.findById(req.params.charitHouseId);
-    res.json(charitHouse);
+charityHouseRouter.get('/:charityHouseId', async (req, res)=>{
+    console.log(req.params.charityHouseId);
+    const charityHouse = await CharityHouse.findById(req.params.charityHouseId);
+    res.json(charityHouse);
 });
 
-charitHouseRouter.patch('/:charitHouseId', async (req, res)=>{
+charityHouseRouter.patch('/:charityHouseId', async (req, res)=>{
     console.log('id body', req.body);
-    console.log('id recieve', req.params.charitHouseId);
-    var charitHouse = req.body;
-    const updatedCharitHouse = await CharitHouse.updateOne(
-        { _id: req.params.charitHouseId},
-        { $set: charitHouse });
-    res.send(updatedcharitHouse);
+    console.log('id recieve', req.params.charityHouseId);
+    var charityHouse = req.body;
+    const updatedCharityHouse = await CharityHouse.updateOne(
+        { _id: req.params.charityHouseId},
+        { $set: charityHouse });
+    res.send(updatedCharityHouse);
 });
 
-charitHouseRouter.delete('/:deleteCharitHouse', async (req, res) => {
+charityHouseRouter.delete('/:deleteCharityHouse', async (req, res) => {
     try {
         console.log('body ' + req.body);
-        const result = await CharitHouse.remove({ _id: req.params.deleteCharitHouse});
+        const result = await CharityHouse.remove({ _id: req.params.deleteCharityHouse});
         if (result) {
             res.send({
-                massage: 'CharitHouse deleted Successfully.'
+                massage: 'Charity House deleted Successfully.'
             });
         }
     } catch (ex) {
@@ -60,4 +56,4 @@ charitHouseRouter.delete('/:deleteCharitHouse', async (req, res) => {
     }
 });
 
-module.exports = charitHouseRouter;
+module.exports = charityHouseRouter;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Food = mongoose.Schema({
   name: String,
   quantity: Number,
-  expiryDate: Date,
+  expiry_date: Date,
   type: String,
   image: String
 });

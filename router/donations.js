@@ -1,6 +1,4 @@
-const jsonwebtoken = require('jsonwebtoken');
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const donationRouter = express.Router();
 const Donation = require('../models/Donation');
 
@@ -10,23 +8,21 @@ donationRouter.get('/', async (req,res)=>{
 
 donationRouter.get('/getDonations', async (req, res)=>{
     const allDonations = await Donation.find();
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send(allDonations);
 });
 
 donationRouter.post('/newDonation', async (req, res)=>{
-    // url to access thi sis "localhosta:3000/students/newStudent" not "localhost:3000/newStudent";
-    //req.setHeader('Access-Control-Allow-Origin', '*');
-    //res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const donation1 = new Donation(req.body);
     console.log('donation', donation1);
     const result = await donation1.save();
     if (result) {
         res.send({
-            message: "Student inserted successfully."
+            message: "a donation inserted successfully."
         });
     }
-    res.send("Save a new student will here.");
+    res.send(donation1);
 });
 
 donationRouter.get('/:donationId', async (req, res)=>{
@@ -42,7 +38,7 @@ donationRouter.patch('/:donationId', async (req, res)=>{
     const updatedDonation = await Donation.updateOne(
         { _id: req.params.donationId},
         { $set: donation });
-    res.send(updateddonation);
+    res.send(updatedDonation);
 });
 
 donationRouter.delete('/:deleteDonation', async (req, res) => {
