@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/fyp', {useNewUrlParser: true}, ()=>console.log('connected'));
 
-mongoose.connect('mongodb+srv://muzammalbsse:muzammalbsse@online-cluster-kylqc.mongodb.net/foodDB?retryWrites=true&w=majority,
+mongoose.connect('mongodb+srv://muzammalbsse:muzammalbsse@online-cluster-kylqc.mongodb.net/foodDB?retryWrites=true&w=majority',
      {useNewUrlParser: true}).then(() => console.log('connected')).catch(err =>{
      console.log(err);});
 
